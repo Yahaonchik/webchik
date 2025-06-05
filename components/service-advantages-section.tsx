@@ -2,45 +2,38 @@
 
 import { motion } from "framer-motion"
 import { WaterTextAnimation } from "@/components/water-text-animation"
-import Image from "next/image"
-import { CheckCircle } from "lucide-react"
+import { CheckCircle, Phone, Wrench, Shield, Clock, Users, Star, Zap } from "lucide-react"
 
 const advantages = [
   {
-    icon: "/images/low-prices.png",
+    icon: <Phone className="w-7 h-7" />,
     title: "Низкие цены на весь сервисный диапазон услуг",
     description: "Доступные цены благодаря большому количеству клиентов и оптимизированным процессам",
-    shape: "clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)",
   },
   {
-    icon: "/images/star-service.png",
+    icon: <Star className="w-7 h-7" />,
     title: "Лучшие мастера с многолетним стажем 7-10 лет",
     description: "Опытные профессионалы с подтвержденной квалификацией",
-    shape: "clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
   },
   {
-    icon: "/images/diagnostic.png",
+    icon: <Wrench className="w-7 h-7" />,
     title: "Современное оборудование по диагностике",
     description: "Высокотехнологичное оборудование для точной диагностики",
-    shape: "clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)",
   },
   {
-    icon: "/images/warranty.png",
+    icon: <Shield className="w-7 h-7" />,
     title: "Гарантийный срок до 24 месяцев",
     description: "Официальная гарантия на детали и услуги",
-    shape: "clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%)",
   },
   {
-    icon: "/images/parts.png",
+    icon: <CheckCircle className="w-7 h-7" />,
     title: "Налаженные связи с поставщиками",
     description: "Оригинальные запчасти и европейские аналоги любых комплектующих",
-    shape: "clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)",
   },
   {
-    icon: "/images/repair.png",
+    icon: <Clock className="w-7 h-7" />,
     title: "Сложный ремонт двигателей",
     description: "Специалисты и оборудование для ремонта современных стиральных машин",
-    shape: "clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
   },
 ]
 
@@ -48,22 +41,22 @@ const serviceHighlights = [
   {
     title: "Профессиональная диагностика",
     description: "Используем современное оборудование для точного определения неисправностей",
-    icon: "/images/diagnostic-pro.png",
+    icon: "🔍",
   },
   {
     title: "Качественный ремонт",
     description: "Восстанавливаем все функции техники с использованием оригинальных запчастей",
-    icon: "/images/quality-repair.png",
+    icon: "🔧",
   },
   {
     title: "Профилактическое обслуживание",
     description: "Проводим чистку и смазку всех узлов для предотвращения будущих поломок",
-    icon: "/images/maintenance.png",
+    icon: "🛡️",
   },
   {
     title: "Гарантия результата",
     description: "Предоставляем официальную гарантию до 24 месяцев на все виды работ",
-    icon: "/images/warranty-seal.png",
+    icon: "✅",
   },
 ]
 
@@ -95,12 +88,9 @@ export function ServiceAdvantagesSection() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-xl p-6 shadow-lg border border-gray-200"
-              style={{ [advantage.shape]: "" }}
+              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200"
             >
-              <div className="w-16 h-16 mb-4 relative">
-                <Image src={advantage.icon} alt={advantage.title} layout="fill" objectFit="contain" />
-              </div>
+              <div className="text-teal-600 mb-4">{advantage.icon}</div>
               <h3 className="text-lg font-semibold mb-3 leading-tight" style={{ color: "#1B6568" }}>
                 {advantage.title}
               </h3>
@@ -109,7 +99,7 @@ export function ServiceAdvantagesSection() {
           ))}
         </div>
 
-        {/* Service Process - Redesigned */}
+        {/* Service Process */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -139,9 +129,7 @@ export function ServiceAdvantagesSection() {
                   className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 relative shrink-0">
-                      <Image src={highlight.icon} alt={highlight.title} layout="fill" objectFit="contain" />
-                    </div>
+                    <div className="text-4xl mb-4">{highlight.icon}</div>
                     <div>
                       <h4 className="text-lg font-semibold mb-2">{highlight.title}</h4>
                       <p className="text-teal-100 font-light text-base leading-relaxed">

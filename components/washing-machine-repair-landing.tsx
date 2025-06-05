@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { motion, useAnimation } from "framer-motion"
 import { AuroraBackground } from "@/components/ui/aurora-background"
 import { WashingMachine } from "@/components/ui/washing-machine"
@@ -10,7 +9,6 @@ import { WashingMachineDiagnostic } from "@/components/washing-machine-diagnosti
 import { BrandCarousel } from "@/components/brand-carousel"
 import { RepairRulesSection } from "@/components/repair-rules-section"
 import { ServiceAdvantagesSection } from "@/components/service-advantages-section"
-import { WaterRippleBackground } from "@/components/water-ripple-background"
 import { Phone, DollarSign, X, Calendar, Clock, Shield, Users, ThumbsUp, MapPin } from "lucide-react"
 import { useEffect, useState, useRef } from "react"
 import { Input } from "@/components/ui/input"
@@ -294,9 +292,7 @@ export default function WashingMachineRepairLanding() {
       </section>
 
       {/* Contacts Section */}
-      <section ref={contactsRef} className="py-20 relative overflow-hidden">
-        <WaterRippleBackground />
-
+      <section ref={contactsRef} className="py-20 relative overflow-hidden" style={{ backgroundColor: "#1B6568" }}>
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -317,7 +313,8 @@ export default function WashingMachineRepairLanding() {
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 shadow-lg"
+              className="backdrop-blur-md rounded-[2rem] p-8 border border-white/20 shadow-lg"
+              style={{ clipPath: "polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)" }}
             >
               <div className="flex items-center mb-6">
                 <Phone className="w-8 h-8 text-white mr-4" />
@@ -331,7 +328,8 @@ export default function WashingMachineRepairLanding() {
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 shadow-lg"
+              className="backdrop-blur-md rounded-[2rem] p-8 border border-white/20 shadow-lg"
+              style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
             >
               <div className="flex items-center mb-6">
                 <MapPin className="w-8 h-8 text-white mr-4" />
@@ -350,7 +348,7 @@ export default function WashingMachineRepairLanding() {
           >
             <button
               onClick={() => setShowCallForm(true)}
-              className="px-8 py-4 bg-white rounded-lg font-semibold text-xl hover:bg-gray-100 transition-colors duration-200 shadow-lg"
+              className="px-8 py-4 bg-white rounded-lg font-semibold text-xl transition-transform duration-200 shadow-lg hover:scale-105"
               style={{ color: "#1B6568" }}
             >
               Вызвать Мастера Сейчас
