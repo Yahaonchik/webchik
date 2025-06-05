@@ -9,26 +9,36 @@ const rules = [
     image: "/images/repairman-stairs.png",
     title: "Соблюдает договора и время прибытия на адрес",
     description: "Наш мастер всегда приезжает вовремя и выполняет все договоренности",
+    shape: "clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)",
+    gradient: "bg-gradient-to-br from-red-50 to-red-100",
   },
   {
     image: "/images/repairman-warranty.png",
     title: "Предоставляет гарантию до 24 мес. на работу и запчасти",
     description: "Официальная гарантия на все виды ремонтных работ и установленные детали",
+    shape: "clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
+    gradient: "bg-gradient-to-br from-red-100 to-red-50",
   },
   {
     image: "/images/tools-cleanliness.png",
     title: "Соблюдает чистоту и порядок рабочего места",
     description: "Аккуратная работа без повреждения вашего имущества и интерьера",
+    shape: "clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)",
+    gradient: "bg-gradient-to-br from-red-50 to-red-100",
   },
   {
     image: "/images/phone-timer.png",
     title: "Работает быстро и качественно",
     description: "Эффективное решение проблем в кратчайшие сроки с высоким качеством",
+    shape: "clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%)",
+    gradient: "bg-gradient-to-br from-red-100 to-red-50",
   },
   {
     image: "/images/repairman-portrait.png",
     title: "Опыт мастеров по ремонту стиральных машин не менее 5 лет",
     description: "Только опытные специалисты с подтвержденной квалификацией",
+    shape: "clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)",
+    gradient: "bg-gradient-to-br from-red-50 to-red-100",
   },
 ]
 
@@ -59,14 +69,15 @@ export function RepairRulesSection() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 group hover:border-transparent hover:bg-gradient-to-br hover:from-teal-50 hover:to-cyan-50 hover:shadow-[0_0_0_2px] hover:shadow-teal-200/50"
+              className={`overflow-hidden border border-gray-200 ${rule.gradient}`}
+              style={{ [rule.shape]: "" }}
             >
               <div className="relative h-64 overflow-hidden">
                 <Image
-                  src={rule.image || "/placeholder.svg"}
+                  src={rule.image}
                   alt={rule.title}
                   fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                  className="object-cover object-center transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
@@ -80,27 +91,6 @@ export function RepairRulesSection() {
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-center mt-12"
-        >
-          <div
-            className="inline-flex items-center space-x-2 bg-white/70 backdrop-blur-sm px-6 py-3 rounded-full font-medium border border-teal-100"
-            style={{ color: "#1B6568" }}
-          >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span>Гарантия качества и профессионализма</span>
-          </div>
-        </motion.div>
       </div>
     </section>
   )
