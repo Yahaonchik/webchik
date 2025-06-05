@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
 
 interface WaterTextAnimationProps {
   text: string
@@ -9,7 +10,12 @@ interface WaterTextAnimationProps {
 }
 
 export function WaterTextAnimation({ text, className = "", color = "inherit" }: WaterTextAnimationProps) {
+  const [hasMounted, setHasMounted] = useState(false)
   const letters = text.split("")
+
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
 
   return (
     <div className={`flex flex-wrap justify-center ${className}`}>
@@ -17,12 +23,21 @@ export function WaterTextAnimation({ text, className = "", color = "inherit" }: 
         <motion.span
           key={index}
           className="inline-block"
-          initial={{
-            opacity: 0,
-            y: 50,
-            scaleY: 0.3,
-            filter: "blur(4px)",
-          }}
+          initial={
+            hasMounted
+              ? {
+                  opacity: 0,
+                  y: 50,
+                  scaleY: 0.3,
+                  filter: "blur(4px)",
+                }
+              : {
+                  opacity: 1,
+                  y: 0,
+                  scaleY: 1,
+                  filter: "blur(0px)",
+                }
+          }
           animate={{
             opacity: 1,
             y: 0,
@@ -30,7 +45,7 @@ export function WaterTextAnimation({ text, className = "", color = "inherit" }: 
             filter: "blur(0px)",
           }}
           transition={{
-            duration: 0,
+            duration: 0.8,
             delay: index * 0.1,
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
