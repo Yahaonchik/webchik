@@ -1,4 +1,3 @@
-{/* Full file content restored with original Contacts section */}
 "use client"
 
 import type React from "react"
