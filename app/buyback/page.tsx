@@ -381,21 +381,6 @@ export default function BuybackPage() {
                 >
                   Продать машину сейчас
                 </Button>
-                <Button
-                  variant="outline"
-                  className="border-white text-white hover:bg-white px-8 py-4 text-xl font-semibold rounded-lg"
-                  style={{ "--tw-border-opacity": "1", borderColor: "white" } as React.CSSProperties}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "white"
-                    e.currentTarget.style.color = "#1B6568"
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "transparent"
-                    e.currentTarget.style.color = "white"
-                  }}
-                >
-                  Узнать цену
-                </Button>
               </div>
             </motion.div>
 

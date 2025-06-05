@@ -1,14 +1,16 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion"
+import { useEffect, useState, useRef } from "react"
 
 const MatrixDisplay = ({ number }: { number: number }) => {
-  const digitsStr = number.toString();
-  const digits = digitsStr.split("");
+  const digitsStr = number.toString()
+  const digits = digitsStr.split("")
 
   // Заполняем слева пробелами, чтобы всегда было 8 символов
-  const paddedDigits = Array(8 - digits.length).fill(" ").concat(digits);
+  const paddedDigits = Array(8 - digits.length)
+    .fill(" ")
+    .concat(digits)
 
   return (
     <div className="absolute top-4 left-4 w-20 h-6 bg-black rounded-sm flex items-center justify-center overflow-hidden">
@@ -41,46 +43,50 @@ const MatrixDisplay = ({ number }: { number: number }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export const WashingMachine = () => {
-  const [counter, setCounter] = useState(0);
-  const startTimeRef = useRef<number | null>(null);
+  const [counter, setCounter] = useState(0)
+  const startTimeRef = useRef<number | null>(null)
 
   useEffect(() => {
-    const duration = 5000; // 5 секунд
-    const maxCount = 1254;
+    const duration = 5000 // 5 секунд
+    const maxCount = 1254
 
     const step = (timestamp: number) => {
-      if (!startTimeRef.current) startTimeRef.current = timestamp;
-      const elapsed = timestamp - startTimeRef.current;
+      if (!startTimeRef.current) startTimeRef.current = timestamp
+      const elapsed = timestamp - startTimeRef.current
       if (elapsed < duration) {
-        const progress = elapsed / duration;
-        setCounter(Math.floor(progress * maxCount));
-        requestAnimationFrame(step);
+        const progress = elapsed / duration
+        setCounter(Math.floor(progress * maxCount))
+        requestAnimationFrame(step)
       } else {
-        setCounter(maxCount);
+        setCounter(maxCount)
       }
-    };
+    }
 
-    requestAnimationFrame(step);
+    requestAnimationFrame(step)
 
     return () => {
-      startTimeRef.current = null;
-    };
-  }, []);
+      startTimeRef.current = null
+    }
+  }, [])
 
   return (
     <div className="relative flex items-center justify-center">
-      {/* Client Counter */}
-      <div className="absolute -left-60 top-4 transform -translate-y-1/2">
-        <div className="flex items-baseline"></div>
-        <h4 className="text-lg font-medium mb-2" style={{ color: "#1B6568" }}>
-          Счетчик довольных клиентов:
-        </h4>
-        <div className="text-3xl font-bold ml-16" style={{ color: "#1B6568" }}>
-          {counter.toLocaleString()}+
+      {/* Client Counter - уменьшен размер текста */}
+      <div className="absolute -left-80 top-1/4 transform -translate-y-1/2">
+        <div className="text-center">
+          <p className="text-lg font-medium mb-2" style={{ color: "#1B6568" }}>
+            Счетчик отремонтированных
+          </p>
+          <p className="text-lg font-medium mb-4" style={{ color: "#1B6568" }}>
+            стиральных машин
+          </p>
+          <div className="text-lg font-bold" style={{ color: "#1B6568" }}>
+            {counter.toLocaleString()}+
+          </div>
         </div>
       </div>
 
@@ -153,5 +159,5 @@ export const WashingMachine = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

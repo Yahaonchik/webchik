@@ -9,7 +9,10 @@ import { WashingMachineDiagnostic } from "@/components/washing-machine-diagnosti
 import { BrandCarousel } from "@/components/brand-carousel"
 import { RepairRulesSection } from "@/components/repair-rules-section"
 import { ServiceAdvantagesSection } from "@/components/service-advantages-section"
-import { Phone, DollarSign, X, Calendar, Clock, Shield, Users, ThumbsUp, MapPin } from "lucide-react"
+import { CallMasterSection } from "@/components/call-master-section"
+import { WaterContactsSection } from "@/components/water-contacts-section"
+import { LoadingScreen } from "@/components/loading-screen"
+import { Phone, DollarSign, X, Calendar, Clock } from "lucide-react"
 import { useEffect, useState, useRef } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -19,6 +22,7 @@ import { format, addDays } from "date-fns"
 import { uk } from "date-fns/locale"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
+import { usePathname } from "next/navigation"
 
 export default function WashingMachineRepairLanding() {
   const buttonControls = useAnimation()
@@ -27,10 +31,21 @@ export default function WashingMachineRepairLanding() {
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [time, setTime] = useState<string | undefined>(undefined)
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [hasShownLoading, setHasShownLoading] = useState(false)
+  const pathname = usePathname()
 
   const pricesRef = useRef<HTMLDivElement>(null)
   const advantagesRef = useRef<HTMLDivElement>(null)
   const contactsRef = useRef<HTMLDivElement>(null)
+
+  // Показываем загрузочный экран только при первом заходе на главную
+  useEffect(() => {
+    if (pathname === "/" && !hasShownLoading) {
+      setIsLoading(true)
+      setHasShownLoading(true)
+    }
+  }, [pathname, hasShownLoading])
 
   // Generate available times (every 30 minutes from 8:00 to 20:00)
   const availableTimes = Array.from({ length: 25 }, (_, i) => {
@@ -41,7 +56,7 @@ export default function WashingMachineRepairLanding() {
 
   // Animate the button every 3 seconds
   useEffect(() => {
-    if (showCallForm) return // Don't animate when form is open
+    if (showCallForm || isLoading) return // Don't animate when form is open or loading
 
     const animateButton = async () => {
       while (true) {
@@ -61,7 +76,7 @@ export default function WashingMachineRepairLanding() {
     }
 
     animateButton()
-  }, [buttonControls, showCallForm])
+  }, [buttonControls, showCallForm, isLoading])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -96,9 +111,13 @@ export default function WashingMachineRepairLanding() {
     pricesRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
+  if (isLoading) {
+    return <LoadingScreen onComplete={() => setIsLoading(false)} />
+  }
+
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section - распределяем контент равномерно по экрану */}
       <AuroraBackground>
         <motion.div
           initial={{ opacity: 0.0, y: 40 }}
@@ -108,46 +127,55 @@ export default function WashingMachineRepairLanding() {
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="relative flex flex-col gap-8 items-center justify-center px-4 min-h-screen"
+          className="relative flex flex-col justify-between items-center px-4 min-h-screen py-20"
         >
-          {/* Header with Water Text Animation */}
+          {/* Header with Water Text Animation - в верхней части */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="text-center mb-8"
+            className="text-center flex-shrink-0"
           >
             <WaterTextAnimation
               text="Ремонт Стиральных Машин"
-              className="text-4xl md:text-7xl font-cormorant font-semibold tracking-wide mb-6"
+              className="text-3xl md:text-6xl font-cormorant font-semibold tracking-wide mb-2"
               color="#1B6568"
             />
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2, duration: 0.8 }}
-              className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-light max-w-2xl mx-auto leading-relaxed"
+              transition={{ delay: 1.5, duration: 0.8 }}
+              className="text-3xl md:text-6xl font-cormorant font-semibold tracking-wide mb-12"
+              style={{ color: "#1B6568" }}
             >
-              Профессиональный ремонт любых марок стиральных машин. Быстро, качественно, с гарантией.
+              в Одессе!
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2, duration: 0.8 }}
+              className="text-lg md:text-xl text-gray-600 dark:text-gray-300 font-light max-w-3xl mx-auto leading-relaxed"
+            >
+              Професійний ремонт будь-яких марок пральних машин. Швидко, якісно, з гарантією.
             </motion.p>
           </motion.div>
 
-          {/* Washing Machine Animation */}
+          {/* Washing Machine Animation - в центре */}
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 2.5, duration: 0.8, ease: "easeOut" }}
-            className="mb-8"
+            className="flex-grow flex items-center justify-center"
           >
             <WashingMachine />
           </motion.div>
 
-          {/* Action Buttons */}
+          {/* Action Buttons - в нижней части */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 3, duration: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 w-full max-w-md"
+            className="flex flex-col sm:flex-row gap-4 w-full max-w-md flex-shrink-0"
           >
             <motion.button
               animate={buttonControls}
@@ -168,18 +196,6 @@ export default function WashingMachineRepairLanding() {
               <DollarSign className="mr-2 h-5 w-5" />
               Посмотреть Цены
             </button>
-          </motion.div>
-
-          {/* Additional Info */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 3.5, duration: 0.6 }}
-            className="text-center mt-8"
-          >
-            <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 font-light tracking-wide">
-              ⚡ Выезд в течение часа • 🛠️ Гарантия на работы • 💰 Честные цены
-            </p>
           </motion.div>
         </motion.div>
       </AuroraBackground>
@@ -221,141 +237,11 @@ export default function WashingMachineRepairLanding() {
       {/* Service Advantages Section */}
       <ServiceAdvantagesSection />
 
-      {/* Advantages Section */}
-      <section ref={advantagesRef} className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <WaterTextAnimation
-              text="Наши Преимущества"
-              className="text-4xl md:text-6xl font-semibold mb-6 tracking-wide"
-              color="#1B6568"
-            />
-            <p className="text-xl text-gray-600 font-light">Почему выбирают именно нас</p>
-          </motion.div>
+      {/* Call Master Section (replaces Advantages) */}
+      <CallMasterSection />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 border border-gray-200 group hover:border-transparent hover:bg-gradient-to-br hover:from-teal-50 hover:to-cyan-50 hover:shadow-[0_0_0_2px] hover:shadow-teal-200/50"
-            >
-              <div className="w-20 h-20 mx-auto mb-6 bg-teal-100 rounded-full flex items-center justify-center group-hover:bg-teal-100 transition-colors duration-300">
-                <Shield className="w-10 h-10 text-teal-600 group-hover:text-teal-600 transition-colors duration-300" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4 tracking-wide" style={{ color: "#1B6568" }}>
-                2 Года Гарантии
-              </h3>
-              <p className="text-gray-600 font-light text-lg">
-                Предоставляем официальную гарантию на все виды работ и запчасти
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-center bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 border border-gray-200 group hover:border-transparent hover:bg-gradient-to-br hover:from-teal-50 hover:to-cyan-50 hover:shadow-[0_0_0_2px] hover:shadow-teal-200/50"
-            >
-              <div className="w-20 h-20 mx-auto mb-6 bg-teal-100 rounded-full flex items-center justify-center group-hover:bg-teal-100 transition-colors duration-300">
-                <Users className="w-10 h-10 text-teal-600 group-hover:text-teal-600 transition-colors duration-300" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4 tracking-wide" style={{ color: "#1B6568" }}>
-                1000+ Довольных Клиентов
-              </h3>
-              <p className="text-gray-600 font-light text-lg">
-                Тысячи успешно отремонтированных стиральных машин по всей Украине
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-center bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 border border-gray-200 group hover:border-transparent hover:bg-gradient-to-br hover:from-teal-50 hover:to-cyan-50 hover:shadow-[0_0_0_2px] hover:shadow-teal-200/50"
-            >
-              <div className="w-20 h-20 mx-auto mb-6 bg-teal-100 rounded-full flex items-center justify-center group-hover:bg-teal-100 transition-colors duration-300">
-                <ThumbsUp className="w-10 h-10 text-teal-600 group-hover:text-teal-600 transition-colors duration-300" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4 tracking-wide" style={{ color: "#1B6568" }}>
-                Поломки Любой Сложности
-              </h3>
-              <p className="text-gray-600 font-light text-lg">Ремонтируем стиральные машины всех марок и моделей</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contacts Section */}
-      <section ref={contactsRef} className="py-20 relative overflow-hidden" style={{ backgroundColor: "#1B6568" }}>
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
-            <WaterTextAnimation
-              text="Контакты"
-              className="text-4xl md:text-6xl font-semibold mb-4 tracking-wide text-white"
-              color="white"
-            />
-            <p className="text-xl text-white/90 font-light">Свяжитесь с нами любым удобным способом</p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="backdrop-blur-md rounded-[2rem] p-8 border border-white/20 shadow-lg"
-              style={{ clipPath: "polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)" }}
-            >
-              <div className="flex items-center mb-6">
-                <Phone className="w-8 h-8 text-white mr-4" />
-                <h3 className="text-2xl font-semibold text-white tracking-wide">Телефон</h3>
-              </div>
-              <p className="text-white/90 text-xl font-light mb-2">+38 (067) 123-45-67</p>
-              <p className="text-white/90 text-xl font-light">+38 (050) 987-65-43</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="backdrop-blur-md rounded-[2rem] p-8 border border-white/20 shadow-lg"
-              style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
-            >
-              <div className="flex items-center mb-6">
-                <MapPin className="w-8 h-8 text-white mr-4" />
-                <h3 className="text-2xl font-semibold text-white tracking-wide">Адрес</h3>
-              </div>
-              <p className="text-white/90 text-xl font-light mb-2">г. Киев</p>
-              <p className="text-white/90 text-lg font-light">Выезд по всей Украине</p>
-            </motion.div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-center mt-12"
-          >
-            <button
-              onClick={() => setShowCallForm(true)}
-              className="px-8 py-4 bg-white rounded-lg font-semibold text-xl transition-transform duration-200 shadow-lg hover:scale-105"
-              style={{ color: "#1B6568" }}
-            >
-              Вызвать Мастера Сейчас
-            </button>
-          </motion.div>
-        </div>
-      </section>
+      {/* Contacts Section with Water Animation */}
+      <WaterContactsSection onCallMaster={() => setShowCallForm(true)} />
 
       {/* Call Master Form */}
       <motion.div

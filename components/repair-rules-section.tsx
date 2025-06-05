@@ -59,11 +59,11 @@ export function RepairRulesSection() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 group hover:border-transparent hover:bg-gradient-to-br hover:from-red-50 hover:to-red-100"
+              className="bg-white rounded-xl shadow-lg hover:shadow-2xl hover:shadow-gray-400/50 transition-all duration-300 overflow-hidden border border-gray-200 group hover:border-transparent hover:translate-y-[-4px]"
             >
               <div className="relative h-64 overflow-hidden">
                 <Image
-                  src={rule.image}
+                  src={rule.image || "/placeholder.svg"}
                   alt={rule.title}
                   fill
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-300"

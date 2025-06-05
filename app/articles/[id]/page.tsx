@@ -1,10 +1,13 @@
 "use client"
 
+import type React from "react"
+
 import { motion } from "framer-motion"
 import { WaterTextAnimation } from "@/components/water-text-animation"
-import { Clock, User, ArrowRight } from "lucide-react"
+import { Clock, User, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { useParams } from "next/navigation"
 
 const articles = [
   {
@@ -163,75 +166,76 @@ const articles = [
   },
 ]
 
-export default function ArticlesPage() {
+export default function ArticlePage() {
+  const params = useParams()
+  const articleId = Number.parseInt(params.id as string)
+  const article = articles.find((a) => a.id === articleId)
+
+  if (!article) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-semibold mb-4" style={{ color: "#1B6568" }}>
+            Статья не найдена
+          </h1>
+          <Link href="/articles" className="inline-flex items-center text-teal-600 hover:text-teal-700 font-medium">
+            <ArrowLeft className="w-4 h-4 mr-1" />
+            Вернуться к статьям
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-white">
       <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-20">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
+        <div className="container mx-auto px-4 max-w-4xl">
+          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <Link
+              href="/articles"
+              className="inline-flex items-center text-teal-600 hover:text-teal-700 font-medium mb-8 transition-colors duration-300"
+            >
+              <ArrowLeft className="w-4 h-4 mr-1" />
+              Вернуться к статьям
+            </Link>
+
+            <div className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-8">
+              <Image
+                src={article.image || "/placeholder.svg"}
+                alt={article.title}
+                fill
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            </div>
+
+            <div className="flex items-center text-sm text-gray-500 mb-6">
+              <User className="w-4 h-4 mr-1" />
+              <span className="mr-4">{article.author}</span>
+              <Clock className="w-4 h-4 mr-1" />
+              <span className="mr-4">{article.readTime}</span>
+              <span>{article.date}</span>
+            </div>
+
             <WaterTextAnimation
-              text="Полезные Статьи"
-              className="text-4xl md:text-7xl font-semibold mb-6 tracking-wide"
+              text={article.title}
+              className="text-3xl md:text-5xl font-semibold mb-6 tracking-wide"
               color="#1B6568"
             />
-            <p className="text-xl md:text-2xl text-gray-600 font-light max-w-2xl mx-auto">
-              Полезные советы и рекомендации по ремонту и обслуживанию стиральных машин
-            </p>
+
+            <div
+              className="prose prose-lg max-w-none"
+              style={
+                {
+                  "--tw-prose-headings": "#1B6568",
+                  "--tw-prose-links": "#0d9488",
+                  "--tw-prose-bold": "#1B6568",
+                } as React.CSSProperties
+              }
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
           </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {articles.map((article, index) => (
-              <motion.article
-                key={article.id}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 group"
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={article.image || "/placeholder.svg"}
-                    alt={article.title}
-                    fill
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                </div>
-
-                <div className="p-6">
-                  <div className="flex items-center text-sm text-gray-500 mb-3">
-                    <User className="w-4 h-4 mr-1" />
-                    <span className="mr-4">{article.author}</span>
-                    <Clock className="w-4 h-4 mr-1" />
-                    <span className="mr-4">{article.readTime}</span>
-                    <span>{article.date}</span>
-                  </div>
-
-                  <h2
-                    className="text-xl font-semibold mb-3 leading-tight group-hover:text-teal-600 transition-colors duration-300"
-                    style={{ color: "#1B6568" }}
-                  >
-                    {article.title}
-                  </h2>
-
-                  <p className="text-gray-600 font-light leading-relaxed mb-4">{article.excerpt}</p>
-
-                  <Link
-                    href={`/articles/${article.id}`}
-                    className="inline-flex items-center text-teal-600 hover:text-teal-700 font-medium transition-colors duration-300"
-                  >
-                    Читать далее
-                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
-                  </Link>
-                </div>
-              </motion.article>
-            ))}
-          </div>
         </div>
       </div>
     </div>

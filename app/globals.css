@@ -69,6 +69,9 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-eb-garamond), serif;
+    /* Исправление проблемы со скроллбаром */
+    overflow-x: hidden;
+    width: 100vw;
   }
 
   /* Большие жирные заголовки остаются с Cormorant Garamond */
@@ -99,6 +102,17 @@
   a {
     font-family: var(--font-eb-garamond), serif;
   }
+
+  /* Предотвращение layout shift при открытии модальных окон */
+  html {
+    scrollbar-gutter: stable;
+  }
+
+  /* Фиксация ширины viewport */
+  .viewport-fix {
+    width: 100vw;
+    overflow-x: hidden;
+  }
 }
 
 @keyframes aurora {
@@ -125,4 +139,19 @@
 
 .animate-aurora-slow {
   animation: aurora-slow 37.5s linear infinite;
+}
+
+/* Исправление для Radix UI Select компонентов */
+[data-radix-popper-content-wrapper] {
+  z-index: 50 !important;
+}
+
+/* Предотвращение сдвига при блокировке скролла */
+body[style*="pointer-events: none"] {
+  padding-right: 0 !important;
+}
+
+/* Стабилизация скроллбара */
+html {
+  overflow-y: scroll;
 }
