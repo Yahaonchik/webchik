@@ -619,10 +619,10 @@ export function WashingMachineDiagnostic() {
     <div className="w-full max-w-4xl mx-auto">
       <Card className="bg-white border-gray-200 shadow-xl">
         <CardHeader className="text-white rounded-t-lg" style={{ backgroundColor: "#1B6568" }}>
-          <CardTitle className="text-3xl md:text-5xl font-semibold text-center">
+          <CardTitle className="text-2xl md:text-4xl font-semibold text-center">
             Онлайн-діагностика стиральної машини
           </CardTitle>
-          <CardDescription className="text-gray-200 text-center text-xl">
+          <CardDescription className="text-gray-200 text-center text-lg">
             Просто заполните форму и узнайте примерную поломку и цену ремонта
           </CardDescription>
         </CardHeader>

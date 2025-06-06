@@ -6,27 +6,27 @@ import Image from "next/image"
 
 const rules = [
   {
-    image: "/images/repairman-stairs.png",
+    image: "/images/master-stairs-new.png",
     title: "Соблюдает договора и время прибытия на адрес",
     description: "Наш мастер всегда приезжает вовремя и выполняет все договоренности",
   },
   {
-    image: "/images/repairman-warranty.png",
+    image: "/images/master-documentation-new.png",
     title: "Предоставляет гарантию до 24 мес. на работу и запчасти",
     description: "Официальная гарантия на все виды ремонтных работ и установленные детали",
   },
   {
-    image: "/images/tools-cleanliness.png",
+    image: "/images/master-tools-new.png",
     title: "Соблюдает чистоту и порядок рабочего места",
     description: "Аккуратная работа без повреждения вашего имущества и интерьера",
   },
   {
-    image: "/images/phone-timer.png",
+    image: "/images/master-handshake-new.png",
     title: "Работает быстро и качественно",
     description: "Эффективное решение проблем в кратчайшие сроки с высоким качеством",
   },
   {
-    image: "/images/repairman-portrait.png",
+    image: "/images/master-portrait-new.png",
     title: "Опыт мастеров по ремонту стиральных машин не менее 5 лет",
     description: "Только опытные специалисты с подтвержденной квалификацией",
   },

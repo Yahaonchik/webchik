@@ -28,7 +28,7 @@ export const AuroraBackground = ({
           style={
             {
               "--aurora":
-                "repeating-linear-gradient(100deg,#d4a574_10%,#e6c2a6_15%,#f5deb3_20%,#ddbea9_25%,#cb997e_30%)",
+                "repeating-linear-gradient(100deg,#1B6568_10%,#f5deb3_15%,#1B6568_20%,#e6c2a6_25%,#1B6568_30%)",
 
               "--dark-gradient":
                 "repeating-linear-gradient(100deg,#000_0%,#000_7%,transparent_10%,transparent_12%,#000_16%)",
@@ -36,11 +36,9 @@ export const AuroraBackground = ({
               "--white-gradient":
                 "repeating-linear-gradient(100deg,#fff_0%,#fff_7%,transparent_10%,transparent_12%,#fff_16%)",
 
+              "--teal-600": "#1B6568",
               "--beige-300": "#f5deb3",
               "--beige-400": "#e6c2a6",
-              "--beige-500": "#d4a574",
-              "--tan-300": "#ddbea9",
-              "--tan-400": "#cb997e",
               "--black": "#000",
               "--white": "#fff",
               "--transparent": "transparent",
@@ -49,7 +47,9 @@ export const AuroraBackground = ({
         >
           <div
             className={cn(
-              `animate-aurora-slow pointer-events-none absolute -inset-[10px] [background-image:var(--white-gradient),var(--aurora)] [background-size:300%,_200%] [background-position:50%_50%,50%_50%] opacity-50 blur-[10px] invert filter will-change-transform [--aurora:repeating-linear-gradient(100deg,var(--beige-500)_10%,var(--tan-300)_15%,var(--beige-300)_20%,var(--tan-400)_25%,var(--beige-400)_30%)] [--dark-gradient:repeating-linear-gradient(100deg,var(--black)_0%,var(--black)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--black)_16%)] [--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--white)_16%)] after:absolute after:inset-0 after:[background-image:var(--white-gradient),var(--aurora)] after:[background-size:200%,_100%] after:[background-attachment:fixed] after:mix-blend-difference after:content-[""] after:animate-aurora-slow dark:[background-image:var(--dark-gradient),var(--aurora)] dark:invert-0 after:dark:[background-image:var(--dark-gradient),var(--aurora)]`,
+              `pointer-events-none absolute -inset-[10px] [background-image:var(--white-gradient),var(--aurora)] [background-size:300%,_200%] [background-position:50%_50%,50%_50%] opacity-25 blur-[10px] invert filter will-change-transform [--aurora:repeating-linear-gradient(100deg,var(--teal-600)_10%,var(--beige-300)_15%,var(--teal-600)_20%,var(--beige-400)_25%,var(--teal-600)_30%)] [--dark-gradient:repeating-linear-gradient(100deg,var(--black)_0%,var(--black)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--black)_16%)] [--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--white)_16%)] after:absolute after:inset-0 after:[background-image:var(--white-gradient),var(--aurora)] after:[background-size:200%,_100%] after:[background-attachment:fixed] after:mix-blend-difference after:content-[""] dark:[background-image:var(--dark-gradient),var(--aurora)] dark:invert-0 after:dark:[background-image:var(--dark-gradient),var(--aurora)]`,
+              // Анимация только для больших экранов (lg и выше) и замедленная
+              "lg:animate-aurora-very-slow lg:after:animate-aurora-very-slow",
               showRadialGradient && `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`,
             )}
           ></div>

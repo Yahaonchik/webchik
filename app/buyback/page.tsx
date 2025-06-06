@@ -183,7 +183,7 @@ export default function BuybackPage() {
                 transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
               >
                 <Image
-                  src="/images/washing-machine-buyback.png"
+                  src="/images/buyback-handshake.jpeg"
                   alt="Выкуп стиральных машин - сделка"
                   width={400}
                   height={300}
@@ -392,7 +392,7 @@ export default function BuybackPage() {
             >
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
                 <Image
-                  src="/images/repairman-lifting1.png"
+                  src="/images/buyback-work.jpeg"
                   alt="Мастер забирает стиральную машину"
                   width={200}
                   height={150}
@@ -403,7 +403,7 @@ export default function BuybackPage() {
 
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
                 <Image
-                  src="/images/repairman-lifting2.png"
+                  src="/images/buyback-master.jpeg"
                   alt="Мастер перевозит стиральную машину"
                   width={200}
                   height={150}

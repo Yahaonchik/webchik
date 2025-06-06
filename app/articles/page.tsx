@@ -38,7 +38,7 @@ const articles = [
     author: "Мастер Сергей",
     date: "15 декабря 2024",
     readTime: "5 мин",
-    image: "/images/washing-machine-reference.png",
+    image: "/images/article-icon-7.svg",
   },
   {
     id: 2,
@@ -115,7 +115,7 @@ const articles = [
     author: "Мастер Дмитрий",
     date: "10 декабря 2024",
     readTime: "8 мин",
-    image: "/images/tools-cleanliness.png",
+    image: "/images/article-icon-9.svg",
   },
   {
     id: 4,

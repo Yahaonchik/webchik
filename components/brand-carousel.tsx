@@ -4,18 +4,18 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 
 const brands = [
-  { name: "Bosch", logo: "/images/bosch-logo.png" },
-  { name: "Whirlpool", logo: "/images/whirlpool-logo.png" },
-  { name: "Indesit", logo: "/images/indesit-logo.png" },
-  { name: "LG", logo: "/images/lg-logo.png" },
-  { name: "Electrolux", logo: "/images/electrolux-logo.png" },
-  { name: "Zanussi", logo: "/images/zanussi-logo.png" },
-  { name: "Samsung", logo: "/images/samsung-logo.png" },
-  { name: "Candy", logo: "/images/candy-logo.png" },
-  { name: "Ariston", logo: "/images/ariston-logo.png" },
-  { name: "Beko", logo: "/images/beko-logo.png" },
-  { name: "Gorenje", logo: "/images/gorenje-logo.png" },
-  { name: "Ardo", logo: "/images/ardo-logo.png" },
+  { name: "Bosch", logo: "/images/bosch-logo-new.png" },
+  { name: "Whirlpool", logo: "/images/whirlpool-logo-final.png" },
+  { name: "Indesit", logo: "/images/indesit-logo-new.png" },
+  { name: "LG", logo: "/images/lg-logo-new.png" },
+  { name: "Electrolux", logo: "/images/electrolux-logo-new.png" },
+  { name: "Zanussi", logo: "/images/zanussi-logo-final.png" },
+  { name: "Samsung", logo: "/images/samsung-logo-final.png" },
+  { name: "Candy", logo: "/images/candy-logo-new.png" },
+  { name: "Ariston", logo: "/images/ariston-logo-new.png" },
+  { name: "Beko", logo: "/images/beko-logo-new.png" },
+  { name: "Gorenje", logo: "/images/gorenje-logo-new.png" },
+  { name: "Ardo", logo: "/images/ardo-logo-new.png" },
 ]
 
 export function BrandCarousel() {

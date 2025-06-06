@@ -8,11 +8,10 @@ import { WaterTextAnimation } from "@/components/water-text-animation"
 import { WashingMachineDiagnostic } from "@/components/washing-machine-diagnostic"
 import { BrandCarousel } from "@/components/brand-carousel"
 import { RepairRulesSection } from "@/components/repair-rules-section"
-import { ServiceAdvantagesSection } from "@/components/service-advantages-section"
-import { CallMasterSection } from "@/components/call-master-section"
 import { WaterContactsSection } from "@/components/water-contacts-section"
 import { LoadingScreen } from "@/components/loading-screen"
-import { Phone, DollarSign, X, Calendar, Clock } from "lucide-react"
+import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
+import { Phone, X, Calendar, Clock } from "lucide-react"
 import { useEffect, useState, useRef } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -23,9 +22,14 @@ import { uk } from "date-fns/locale"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
+import { HryvniaIcon } from "@/components/ui/hryvnia-icon"
+import { StepperSection } from "@/components/stepper-section"
+import { FAQSection } from "@/components/faq-section"
+import { ServiceAdvantagesSection } from "@/components/service-advantages-section"
+import Image from "next/image"
 
 export default function WashingMachineRepairLanding() {
-  const buttonControls = useAnimation()
+  const phoneIconControls = useAnimation()
   const [showCallForm, setShowCallForm] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState("")
   const [date, setDate] = useState<Date | undefined>(undefined)
@@ -54,29 +58,23 @@ export default function WashingMachineRepairLanding() {
     return `${hour}:${minute}`
   })
 
-  // Animate the button every 3 seconds
+  // Animate phone icon like ringing
   useEffect(() => {
-    if (showCallForm || isLoading) return // Don't animate when form is open or loading
+    if (showCallForm || isLoading) return
 
-    const animateButton = async () => {
+    const animatePhone = async () => {
       while (true) {
-        await buttonControls.start({
-          y: -8,
-          scale: 1.05,
-          transition: { duration: 0.4, ease: "easeOut" },
-        })
-        await new Promise((resolve) => setTimeout(resolve, 300))
-        await buttonControls.start({
-          y: 0,
-          scale: 1,
-          transition: { duration: 0.5, ease: "easeIn" },
+        // Ring animation - rotate left and right
+        await phoneIconControls.start({
+          rotate: [0, -15, 15, -15, 15, 0],
+          transition: { duration: 0.6, ease: "easeInOut" },
         })
         await new Promise((resolve) => setTimeout(resolve, 3000))
       }
     }
 
-    animateButton()
-  }, [buttonControls, showCallForm, isLoading])
+    animatePhone()
+  }, [phoneIconControls, showCallForm, isLoading])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -117,35 +115,35 @@ export default function WashingMachineRepairLanding() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section - распределяем контент равномерно по экрану */}
+      {/* Hero Section */}
       <AuroraBackground>
         <motion.div
           initial={{ opacity: 0.0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{
-            delay: 0.3,
-            duration: 0.8,
+            delay: 0.1,
+            duration: 0.5,
             ease: "easeInOut",
           }}
-          className="relative flex flex-col justify-between items-center px-4 min-h-screen py-20"
+          className="relative flex flex-col justify-between items-center px-4 min-h-[85vh] py-16"
         >
-          {/* Header with Water Text Animation - в верхней части */}
+          {/* Header with Water Text Animation */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
             className="text-center flex-shrink-0"
           >
             <WaterTextAnimation
               text="Ремонт Стиральных Машин"
-              className="text-3xl md:text-6xl font-cormorant font-semibold tracking-wide mb-2"
+              className="text-3xl md:text-5xl font-cormorant font-semibold tracking-wide mb-2"
               color="#1B6568"
             />
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.5, duration: 0.8 }}
-              className="text-3xl md:text-6xl font-cormorant font-semibold tracking-wide mb-12"
+              transition={{ delay: 0.6, duration: 0.4 }}
+              className="text-3xl md:text-5xl font-cormorant font-semibold tracking-wide mb-8"
               style={{ color: "#1B6568" }}
             >
               в Одессе!
@@ -153,76 +151,103 @@ export default function WashingMachineRepairLanding() {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2, duration: 0.8 }}
-              className="text-lg md:text-xl text-gray-600 dark:text-gray-300 font-light max-w-3xl mx-auto leading-relaxed"
+              transition={{ delay: 0.8, duration: 0.4 }}
+              className="text-lg md:text-xl text-gray-600 dark:text-gray-300 font-light max-w-3xl mx-auto leading-relaxed mt-8"
             >
               Професійний ремонт будь-яких марок пральних машин. Швидко, якісно, з гарантією.
             </motion.p>
           </motion.div>
 
-          {/* Washing Machine Animation - в центре */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 2.5, duration: 0.8, ease: "easeOut" }}
-            className="flex-grow flex items-center justify-center"
-          >
-            <WashingMachine />
-          </motion.div>
+          {/* Main Content Grid */}
+          <div className="flex-grow flex items-center justify-center w-full max-w-7xl">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center w-full">
+              {/* Left Side - Empty space */}
+              <motion.div
+                initial={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.2, duration: 0.4 }}
+                className="flex flex-col items-center lg:items-end text-center lg:text-right lg:pr-8"
+              >
+                <div></div>
+              </motion.div>
 
-          {/* Action Buttons - в нижней части */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 3, duration: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 w-full max-w-md flex-shrink-0"
-          >
-            <motion.button
-              animate={buttonControls}
-              whileHover={{ y: -8, scale: 1.05 }}
-              onClick={() => setShowCallForm(true)}
-              className="flex-1 px-6 py-3 text-white rounded-lg font-semibold text-lg flex items-center justify-center shadow-lg tracking-wide"
-              style={{ backgroundColor: "#1B6568" }}
-            >
-              <Phone className="mr-2 h-5 w-5" />
-              Вызвать Мастера
-            </motion.button>
+              {/* Center - Washing Machine with Master Container */}
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 1, duration: 0.5, ease: "easeOut" }}
+                className="flex justify-center relative"
+              >
+                {/* Container for Machine and Master */}
+                <div className="relative flex items-center justify-center">
+                  {/* Master Behind Machine - полностью видимый и отзеркаленный */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.6, duration: 0.4 }}
+                    className="absolute right-[-140px] sm:right-[-160px] top-[-20px] sm:top-[-30px] z-0"
+                  >
+                    <Image
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Frame%20601-P0qLSWXLIpP85s6EjeMKGj9rnvDKAK.png"
+                      alt="Мастер по ремонту"
+                      width={180}
+                      height={220}
+                      className="object-contain sm:w-[200px] sm:h-[240px]"
+                      style={{
+                        transform: "scaleX(-1)", // Отзеркаливание
+                      }}
+                    />
+                  </motion.div>
 
-            <button
-              onClick={scrollToPrices}
-              className="flex-1 px-6 py-3 rounded-lg border border-neutral-300 bg-neutral-100 text-neutral-500 hover:-translate-y-1 transform transition duration-200 hover:shadow-md flex items-center justify-center font-medium text-lg tracking-wide"
-              style={{ color: "#1B6568" }}
-            >
-              <DollarSign className="mr-2 h-5 w-5" />
-              Посмотреть Цены
-            </button>
-          </motion.div>
+                  {/* Washing Machine */}
+                  <div className="relative z-10">
+                    <WashingMachine />
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Right Side - Buttons */}
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.4, duration: 0.4 }}
+                className="flex flex-col gap-4"
+              >
+                <button
+                  onClick={() => setShowCallForm(true)}
+                  className="px-6 py-3 text-white rounded-lg font-semibold text-lg flex items-center justify-center shadow-lg tracking-wide transition-all duration-200 hover:shadow-xl"
+                  style={{ backgroundColor: "#1B6568" }}
+                >
+                  <motion.div animate={phoneIconControls} className="mr-2">
+                    <Phone className="h-5 w-5" />
+                  </motion.div>
+                  <AnimatedShinyText className="text-white">Вызвать Мастера</AnimatedShinyText>
+                </button>
+
+                <button
+                  onClick={scrollToPrices}
+                  className="px-6 py-3 rounded-lg border border-neutral-300 bg-neutral-100 text-neutral-500 hover:-translate-y-1 transform transition duration-200 hover:shadow-md flex items-center justify-center font-medium text-lg tracking-wide"
+                  style={{ color: "#1B6568" }}
+                >
+                  <HryvniaIcon className="mr-2" size={20} />
+                  Посмотреть Цены
+                </button>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Bottom spacer */}
+          <div className="flex-shrink-0 h-4"></div>
         </motion.div>
       </AuroraBackground>
 
       {/* Prices Section */}
       <section
         ref={pricesRef}
-        className="py-20 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800"
+        className="py-8 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800"
       >
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <WaterTextAnimation
-              text="Онлайн-диагностика"
-              className="text-4xl md:text-6xl font-semibold mb-6 tracking-wide"
-              color="#1B6568"
-            />
-            <p className="text-xl text-gray-600 dark:text-gray-300 font-light">
-              Узнайте примерную стоимость ремонта вашей стиральной машины
-            </p>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
             <WashingMachineDiagnostic />
           </motion.div>
         </div>
@@ -237,8 +262,11 @@ export default function WashingMachineRepairLanding() {
       {/* Service Advantages Section */}
       <ServiceAdvantagesSection />
 
-      {/* Call Master Section (replaces Advantages) */}
-      <CallMasterSection />
+      {/* Stepper Section */}
+      <StepperSection />
+
+      {/* FAQ Section */}
+      <FAQSection />
 
       {/* Contacts Section with Water Animation */}
       <WaterContactsSection onCallMaster={() => setShowCallForm(true)} />

@@ -75,7 +75,7 @@ export const WashingMachine = () => {
 
   return (
     <div className="relative flex items-center justify-center">
-      {/* Client Counter - уменьшен размер текста */}
+      {/* Client Counter - показываем только здесь */}
       <div className="absolute -left-80 top-1/4 transform -translate-y-1/2">
         <div className="text-center">
           <p className="text-lg font-medium mb-2" style={{ color: "#1B6568" }}>

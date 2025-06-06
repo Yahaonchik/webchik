@@ -116,7 +116,7 @@ export function WaterContactsSection({ onCallMaster }: { onCallMaster: () => voi
             className="text-4xl md:text-6xl font-semibold mb-4 tracking-wide text-white"
             color="white"
           />
-          <p className="text-xl text-white/90 font-light">Свяжитесь с нами любым удобным способом</p>
+          <p className="text-xl text-white font-light">Свяжитесь с нами любым удобным способом</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -131,8 +131,8 @@ export function WaterContactsSection({ onCallMaster }: { onCallMaster: () => voi
               <Phone className="w-8 h-8 text-white mr-4" />
               <h3 className="text-2xl font-semibold text-white tracking-wide">Телефон</h3>
             </div>
-            <p className="text-white/90 text-xl font-light mb-2">+38 (067) 123-45-67</p>
-            <p className="text-white/90 text-xl font-light">+38 (050) 987-65-43</p>
+            <p className="text-white text-xl font-light mb-2">+38 (067) 123-45-67</p>
+            <p className="text-white text-xl font-light">+38 (050) 987-65-43</p>
           </motion.div>
 
           <motion.div
@@ -146,8 +146,8 @@ export function WaterContactsSection({ onCallMaster }: { onCallMaster: () => voi
               <MapPin className="w-8 h-8 text-white mr-4" />
               <h3 className="text-2xl font-semibold text-white tracking-wide">Адрес</h3>
             </div>
-            <p className="text-white/90 text-xl font-light mb-2">г. Киев</p>
-            <p className="text-white/90 text-lg font-light">Выезд по всей Украине</p>
+            <p className="text-white text-xl font-light mb-2">г. Киев</p>
+            <p className="text-white text-lg font-light">Выезд по всей Украине</p>
           </motion.div>
         </div>
 
