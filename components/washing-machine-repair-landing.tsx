@@ -190,8 +190,8 @@ export default function WashingMachineRepairLanding() {
                     <Image
                       src="/images/washing-machine-reference.png"
                       alt="Мастер по ремонту"
-                      width={220}
-                      height={270}
+                      width={500}
+                      height={500}
                       className="object-contain sm:w-[200px] sm:h-[240px]"
                       style={{
                         transform: "scaleX(-1)", // Отзеркаливание
