@@ -185,14 +185,14 @@ export default function WashingMachineRepairLanding() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.6, duration: 0.4 }}
-                    className="absolute right-[-400px] sm:right-[-100px] top-[-400px] sm:top-[-30px] z-0"
+                    className="absolute right-[-200px] sm:right-[-160px] top-[-100px] sm:top-[-30px] z-0"
                   >
                     <Image
                       src="/images/washing-machine-reference.png"
                       alt="Мастер по ремонту"
-                      width={500}
-                      height={500}
-                      className="object-contain w-[400px] h-[780px]"
+                      width={220}
+                      height={270}
+                      className="object-contain sm:w-[300px] sm:h-[350px]"
                       style={{
                         transform: "scaleX(-1)", // Отзеркаливание
                       }}
