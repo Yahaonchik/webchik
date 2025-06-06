@@ -188,7 +188,7 @@ export default function WashingMachineRepairLanding() {
                     className="absolute right-[-140px] sm:right-[-160px] top-[-20px] sm:top-[-30px] z-0"
                   >
                     <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Frame%20601-P0qLSWXLIpP85s6EjeMKGj9rnvDKAK.png"
+                      src="/images/washing-machine-reference.png"
                       alt="Мастер по ремонту"
                       width={180}
                       height={220}
