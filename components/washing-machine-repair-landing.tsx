@@ -185,7 +185,7 @@ export default function WashingMachineRepairLanding() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.6, duration: 0.4 }}
-                    className="absolute right-[-100px] sm:right-[-120px] top-[-60px] sm:top-[-80px] z-0"
+                    className="absolute right-[-40px] sm:right-[-100px] top-[50px] sm:top-[-30px] z-0"
                   >
                     <Image
                       src="/images/washing-machine-reference.png"
