@@ -192,7 +192,7 @@ export default function WashingMachineRepairLanding() {
                       alt="Мастер по ремонту"
                       width={500}
                       height={500}
-                      className="object-contain w-[300px] h-[360px]"
+                      className="object-contain w-[400px] h-[780px]"
                       style={{
                         transform: "scaleX(-1)", // Отзеркаливание
                       }}
