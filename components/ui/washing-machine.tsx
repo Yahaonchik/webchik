@@ -4,8 +4,13 @@ import { motion } from "framer-motion"
 import { useEffect, useState, useRef } from "react"
 
 const MatrixDisplay = ({ number }: { number: number }) => {
+  const [mounted, setMounted] = useState(false)
   const digitsStr = number.toString()
   const digits = digitsStr.split("")
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Заполняем слева пробелами, чтобы всегда было 8 символов
   const paddedDigits = Array(8 - digits.length)
@@ -19,7 +24,11 @@ const MatrixDisplay = ({ number }: { number: number }) => {
           {paddedDigits.slice(0, 4).map((digit, i) => (
             <motion.span
               key={`top-${i}`}
-              initial={{ opacity: 0, y: -10 }}
+              initial={
+                mounted
+                  ? { opacity: 0, y: -10 }
+                  : undefined
+              }
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.1 }}
               className="w-2 text-center"
@@ -32,7 +41,11 @@ const MatrixDisplay = ({ number }: { number: number }) => {
           {paddedDigits.slice(4, 8).map((digit, i) => (
             <motion.span
               key={`bottom-${i}`}
-              initial={{ opacity: 0, y: 10 }}
+              initial={
+                mounted
+                  ? { opacity: 0, y: 10 }
+                  : undefined
+              }
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.1 }}
               className="w-2 text-center"

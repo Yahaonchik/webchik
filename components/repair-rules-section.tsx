@@ -2,31 +2,25 @@
 
 import { motion } from "framer-motion"
 import { WaterTextAnimation } from "@/components/water-text-animation"
-import Image from "next/image"
 
 const rules = [
   {
-    image: "/images/master-stairs-new.png",
     title: "Соблюдает договора и время прибытия на адрес",
     description: "Наш мастер всегда приезжает вовремя и выполняет все договоренности",
   },
   {
-    image: "/images/master-documentation-new.png",
     title: "Предоставляет гарантию до 24 мес. на работу и запчасти",
     description: "Официальная гарантия на все виды ремонтных работ и установленные детали",
   },
   {
-    image: "/images/master-tools-new.png",
     title: "Соблюдает чистоту и порядок рабочего места",
     description: "Аккуратная работа без повреждения вашего имущества и интерьера",
   },
   {
-    image: "/images/master-handshake-new.png",
     title: "Работает быстро и качественно",
     description: "Эффективное решение проблем в кратчайшие сроки с высоким качеством",
   },
   {
-    image: "/images/master-portrait-new.png",
     title: "Опыт мастеров по ремонту стиральных машин не менее 5 лет",
     description: "Только опытные специалисты с подтвержденной квалификацией",
   },
@@ -61,14 +55,10 @@ export function RepairRulesSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="bg-white rounded-xl shadow-lg hover:shadow-2xl hover:shadow-gray-400/50 transition-all duration-300 overflow-hidden border border-gray-200 group hover:border-transparent hover:translate-y-[-4px]"
             >
-              <div className="relative h-64 overflow-hidden">
-                <Image
-                  src={rule.image || "/placeholder.svg"}
-                  alt={rule.title}
-                  fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              <div className="relative h-64 overflow-hidden bg-gradient-to-br from-teal-100 to-cyan-100 flex items-center justify-center">
+                <div className="w-24 h-24 bg-teal-600 rounded-full flex items-center justify-center">
+                  <span className="text-white text-2xl font-bold">{index + 1}</span>
+                </div>
               </div>
 
               <div className="p-6">

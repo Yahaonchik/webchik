@@ -1,21 +1,20 @@
 "use client"
 
 import { motion } from "framer-motion"
-import Image from "next/image"
 
 const brands = [
-  { name: "Bosch", logo: "/images/bosch-logo-new.png" },
-  { name: "Whirlpool", logo: "/images/whirlpool-logo-final.png" },
-  { name: "Indesit", logo: "/images/indesit-logo-new.png" },
-  { name: "LG", logo: "/images/lg-logo-new.png" },
-  { name: "Electrolux", logo: "/images/electrolux-logo-new.png" },
-  { name: "Zanussi", logo: "/images/zanussi-logo-final.png" },
-  { name: "Samsung", logo: "/images/samsung-logo-final.png" },
-  { name: "Candy", logo: "/images/candy-logo-new.png" },
-  { name: "Ariston", logo: "/images/ariston-logo-new.png" },
-  { name: "Beko", logo: "/images/beko-logo-new.png" },
-  { name: "Gorenje", logo: "/images/gorenje-logo-new.png" },
-  { name: "Ardo", logo: "/images/ardo-logo-new.png" },
+  { name: "Bosch", logo: "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=100&h=50" },
+  { name: "Whirlpool", logo: "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=100&h=50" },
+  { name: "Indesit", logo: "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=100&h=50" },
+  { name: "LG", logo: "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=100&h=50" },
+  { name: "Electrolux", logo: "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=100&h=50" },
+  { name: "Zanussi", logo: "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=100&h=50" },
+  { name: "Samsung", logo: "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=100&h=50" },
+  { name: "Candy", logo: "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=100&h=50" },
+  { name: "Ariston", logo: "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=100&h=50" },
+  { name: "Beko", logo: "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=100&h=50" },
+  { name: "Gorenje", logo: "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=100&h=50" },
+  { name: "Ardo", logo: "https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=100&h=50" },
 ]
 
 export function BrandCarousel() {
@@ -48,13 +47,7 @@ export function BrandCarousel() {
                 key={index}
                 className="flex-shrink-0 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 px-6 py-4 border border-gray-200 flex items-center justify-center min-w-[160px] h-20 group hover:border-transparent hover:bg-gradient-to-br hover:from-teal-50 hover:to-cyan-50 hover:shadow-[0_0_0_2px] hover:shadow-teal-200/50"
               >
-                <Image
-                  src={brand.logo || "/placeholder.svg"}
-                  alt={`${brand.name} logo`}
-                  width={100}
-                  height={50}
-                  className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
-                />
+                <span className="text-lg font-semibold text-gray-700">{brand.name}</span>
               </div>
             ))}
           </motion.div>

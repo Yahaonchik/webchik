@@ -35,21 +35,28 @@ export default function WashingMachineRepairLanding() {
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [time, setTime] = useState<string | undefined>(undefined)
   const [formSubmitted, setFormSubmitted] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [hasShownLoading, setHasShownLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true) // Initialize to true for consistent SSR
+  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
 
   const pricesRef = useRef<HTMLDivElement>(null)
   const advantagesRef = useRef<HTMLDivElement>(null)
   const contactsRef = useRef<HTMLDivElement>(null)
 
-  // Показываем загрузочный экран только при первом заходе на главную
+  // Handle mounting and loading screen logic
   useEffect(() => {
-    if (pathname === "/" && !hasShownLoading) {
-      setIsLoading(true)
-      setHasShownLoading(true)
+    setMounted(true)
+    
+    // Check if we're on the home page and if loading has been shown before
+    if (pathname === "/") {
+      const hasShownLoading = sessionStorage.getItem('hasShownLoading')
+      if (hasShownLoading) {
+        setIsLoading(false)
+      }
+    } else {
+      setIsLoading(false)
     }
-  }, [pathname, hasShownLoading])
+  }, [pathname])
 
   // Generate available times (every 30 minutes from 8:00 to 20:00)
   const availableTimes = Array.from({ length: 25 }, (_, i) => {
@@ -60,7 +67,7 @@ export default function WashingMachineRepairLanding() {
 
   // Animate phone icon like ringing
   useEffect(() => {
-    if (showCallForm || isLoading) return
+    if (showCallForm || isLoading || !mounted) return
 
     const animatePhone = async () => {
       while (true) {
@@ -74,7 +81,7 @@ export default function WashingMachineRepairLanding() {
     }
 
     animatePhone()
-  }, [phoneIconControls, showCallForm, isLoading])
+  }, [phoneIconControls, showCallForm, isLoading, mounted])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -109,8 +116,13 @@ export default function WashingMachineRepairLanding() {
     pricesRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
+  const handleLoadingComplete = () => {
+    setIsLoading(false)
+    sessionStorage.setItem('hasShownLoading', 'true')
+  }
+
   if (isLoading) {
-    return <LoadingScreen onComplete={() => setIsLoading(false)} />
+    return <LoadingScreen onComplete={handleLoadingComplete} />
   }
 
   return (
@@ -218,7 +230,7 @@ export default function WashingMachineRepairLanding() {
                   className="px-6 py-3 text-white rounded-lg font-semibold text-lg flex items-center justify-center shadow-lg tracking-wide transition-all duration-200 hover:shadow-xl"
                   style={{ backgroundColor: "#1B6568" }}
                 >
-                  <motion.div animate={phoneIconControls} className="mr-2">
+                  <motion.div animate={mounted ? phoneIconControls : undefined} className="mr-2">
                     <Phone className="h-5 w-5" />
                   </motion.div>
                   <AnimatedShinyText className="text-white">Вызвать Мастера</AnimatedShinyText>

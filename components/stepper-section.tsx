@@ -2,28 +2,24 @@
 
 import { motion } from "framer-motion"
 import { WaterTextAnimation } from "@/components/water-text-animation"
-import Image from "next/image"
 
 const steps = [
   {
     number: 1,
     title: "Пришел",
     description: "Мастер приезжает в удобное для вас время и проводит первичный осмотр",
-    image: "/images/stepper-step1.jpg",
     details: ["Точно в назначенное время", "Бесплатная диагностика"],
   },
   {
     number: 2,
     title: "Проанализировал",
     description: "Проводит полную диагностику и определяет точную причину неисправности",
-    image: "/images/stepper-step2.jpg",
     details: ["Профессиональная диагностика", "Составление плана ремонта"],
   },
   {
     number: 3,
     title: "Починил",
     description: "Выполняет качественный ремонт с использованием оригинальных запчастей",
-    image: "/images/stepper-step3.jpg",
     details: ["Качественные запчасти", "Гарантия на работы"],
   },
 ]
@@ -58,15 +54,11 @@ export function StepperSection() {
                 transition={{ duration: 0.6, delay: index * 0.2 }}
               >
                 <div className="bg-gray-200 rounded-2xl shadow-lg overflow-hidden border border-gray-300 h-[500px]">
-                  {/* Image */}
-                  <div className="relative h-64 overflow-hidden">
-                    <Image
-                      src={step.image || "/placeholder.svg?height=300&width=400"}
-                      alt={step.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
+                  {/* Image placeholder */}
+                  <div className="relative h-64 overflow-hidden bg-gradient-to-br from-teal-100 to-cyan-100 flex items-center justify-center">
+                    <div className="w-32 h-32 bg-teal-600 rounded-full flex items-center justify-center">
+                      <span className="text-white text-4xl font-bold">{step.number}</span>
+                    </div>
 
                     {/* Simple Number Badge */}
                     <div className="absolute top-4 left-4">

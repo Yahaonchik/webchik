@@ -10,11 +10,11 @@ interface WaterTextAnimationProps {
 }
 
 export function WaterTextAnimation({ text, className = "", color = "inherit" }: WaterTextAnimationProps) {
-  const [hasMounted, setHasMounted] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const letters = text.split("")
 
   useEffect(() => {
-    setHasMounted(true)
+    setMounted(true)
   }, [])
 
   return (
@@ -24,19 +24,14 @@ export function WaterTextAnimation({ text, className = "", color = "inherit" }: 
           key={index}
           className="inline-block"
           initial={
-            hasMounted
+            mounted
               ? {
                   opacity: 0,
                   y: 50,
                   scaleY: 0.3,
                   filter: "blur(4px)",
                 }
-              : {
-                  opacity: 1,
-                  y: 0,
-                  scaleY: 1,
-                  filter: "blur(0px)",
-                }
+              : undefined
           }
           animate={{
             opacity: 1,
