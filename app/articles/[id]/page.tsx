@@ -6,7 +6,6 @@ import { motion } from "framer-motion"
 import { WaterTextAnimation } from "@/components/water-text-animation"
 import { Clock, User, ArrowLeft } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image"
 import { useParams } from "next/navigation"
 
 const articles = [
@@ -41,7 +40,6 @@ const articles = [
     author: "Мастер Сергей",
     date: "15 декабря 2024",
     readTime: "5 мин",
-    image: "/images/washing-machine-reference.png",
   },
   {
     id: 2,
@@ -77,7 +75,6 @@ const articles = [
     author: "Мастер Андрей",
     date: "12 декабря 2024",
     readTime: "7 мин",
-    image: "/images/repairman-portrait.png",
   },
   {
     id: 3,
@@ -118,7 +115,6 @@ const articles = [
     author: "Мастер Дмитрий",
     date: "10 декабря 2024",
     readTime: "8 мин",
-    image: "/images/tools-cleanliness.png",
   },
   {
     id: 4,
@@ -162,7 +158,6 @@ const articles = [
     author: "Мастер Юрий",
     date: "8 декабря 2024",
     readTime: "3 мин",
-    image: "/images/repairman-warranty.png",
   },
 ]
 
@@ -200,13 +195,10 @@ export default function ArticlePage() {
               Вернуться к статьям
             </Link>
 
-            <div className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-8">
-              <Image
-                src={article.image || "/placeholder.svg"}
-                alt={article.title}
-                fill
-                className="object-cover object-center"
-              />
+            <div className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-8 bg-gradient-to-br from-teal-100 to-cyan-100 flex items-center justify-center">
+              <div className="w-32 h-32 bg-teal-600 rounded-full flex items-center justify-center">
+                <span className="text-white text-4xl font-bold">{article.id}</span>
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
             </div>
 

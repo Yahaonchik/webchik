@@ -26,7 +26,6 @@ import { HryvniaIcon } from "@/components/ui/hryvnia-icon"
 import { StepperSection } from "@/components/stepper-section"
 import { FAQSection } from "@/components/faq-section"
 import { ServiceAdvantagesSection } from "@/components/service-advantages-section"
-import Image from "next/image"
 
 export default function WashingMachineRepairLanding() {
   const phoneIconControls = useAnimation()
@@ -35,28 +34,21 @@ export default function WashingMachineRepairLanding() {
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [time, setTime] = useState<string | undefined>(undefined)
   const [formSubmitted, setFormSubmitted] = useState(false)
-  const [isLoading, setIsLoading] = useState(true) // Initialize to true for consistent SSR
-  const [mounted, setMounted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [hasShownLoading, setHasShownLoading] = useState(false)
   const pathname = usePathname()
 
   const pricesRef = useRef<HTMLDivElement>(null)
   const advantagesRef = useRef<HTMLDivElement>(null)
   const contactsRef = useRef<HTMLDivElement>(null)
 
-  // Handle mounting and loading screen logic
+  // Показываем загрузочный экран только при первом заходе на главную
   useEffect(() => {
-    setMounted(true)
-    
-    // Check if we're on the home page and if loading has been shown before
-    if (pathname === "/") {
-      const hasShownLoading = sessionStorage.getItem('hasShownLoading')
-      if (hasShownLoading) {
-        setIsLoading(false)
-      }
-    } else {
-      setIsLoading(false)
+    if (pathname === "/" && !hasShownLoading) {
+      setIsLoading(true)
+      setHasShownLoading(true)
     }
-  }, [pathname])
+  }, [pathname, hasShownLoading])
 
   // Generate available times (every 30 minutes from 8:00 to 20:00)
   const availableTimes = Array.from({ length: 25 }, (_, i) => {
@@ -67,7 +59,7 @@ export default function WashingMachineRepairLanding() {
 
   // Animate phone icon like ringing
   useEffect(() => {
-    if (showCallForm || isLoading || !mounted) return
+    if (showCallForm || isLoading) return
 
     const animatePhone = async () => {
       while (true) {
@@ -81,7 +73,7 @@ export default function WashingMachineRepairLanding() {
     }
 
     animatePhone()
-  }, [phoneIconControls, showCallForm, isLoading, mounted])
+  }, [phoneIconControls, showCallForm, isLoading])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -116,13 +108,8 @@ export default function WashingMachineRepairLanding() {
     pricesRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
-  const handleLoadingComplete = () => {
-    setIsLoading(false)
-    sessionStorage.setItem('hasShownLoading', 'true')
-  }
-
   if (isLoading) {
-    return <LoadingScreen onComplete={handleLoadingComplete} />
+    return <LoadingScreen onComplete={() => setIsLoading(false)} />
   }
 
   return (
@@ -199,16 +186,16 @@ export default function WashingMachineRepairLanding() {
                     transition={{ delay: 1.6, duration: 0.4 }}
                     className="absolute right-[-140px] sm:right-[-160px] top-[-20px] sm:top-[-30px] z-0"
                   >
-                    <Image
-                      src="/images/washing-machine-reference.png"
-                      alt="Мастер по ремонту"
-                      width={220}
-                      height={270}
-                      className="object-contain sm:w-[200px] sm:h-[240px]"
+                    <div 
+                      className="w-[220px] h-[270px] sm:w-[200px] sm:h-[240px] bg-gradient-to-br from-teal-100 to-cyan-100 rounded-lg flex items-center justify-center"
                       style={{
                         transform: "scaleX(-1)", // Отзеркаливание
                       }}
-                    />
+                    >
+                      <div className="w-24 h-24 bg-teal-600 rounded-full flex items-center justify-center">
+                        <span className="text-white text-2xl font-bold">M</span>
+                      </div>
+                    </div>
                   </motion.div>
 
                   {/* Washing Machine */}
@@ -230,7 +217,7 @@ export default function WashingMachineRepairLanding() {
                   className="px-6 py-3 text-white rounded-lg font-semibold text-lg flex items-center justify-center shadow-lg tracking-wide transition-all duration-200 hover:shadow-xl"
                   style={{ backgroundColor: "#1B6568" }}
                 >
-                  <motion.div animate={mounted ? phoneIconControls : undefined} className="mr-2">
+                  <motion.div animate={phoneIconControls} className="mr-2">
                     <Phone className="h-5 w-5" />
                   </motion.div>
                   <AnimatedShinyText className="text-white">Вызвать Мастера</AnimatedShinyText>

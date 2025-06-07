@@ -5,7 +5,6 @@ import type React from "react"
 import { motion } from "framer-motion"
 import { WaterTextAnimation } from "@/components/water-text-animation"
 import { CheckCircle, Truck, Shield, Recycle, DollarSign, Clock, X } from "lucide-react"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
@@ -182,13 +181,11 @@ export default function BuybackPage() {
                 }}
                 transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
               >
-                <Image
-                  src="/images/buyback-handshake.jpeg"
-                  alt="Выкуп стиральных машин - сделка"
-                  width={400}
-                  height={300}
-                  className="w-full h-auto"
-                />
+                <div className="w-full h-[300px] bg-gradient-to-br from-teal-100 to-cyan-100 flex items-center justify-center">
+                  <div className="w-32 h-32 bg-teal-600 rounded-full flex items-center justify-center">
+                    <span className="text-white text-4xl font-bold">₴</span>
+                  </div>
+                </div>
               </motion.div>
 
               {/* Floating elements */}
@@ -391,24 +388,20 @@ export default function BuybackPage() {
               className="grid grid-cols-1 sm:grid-cols-2 gap-6"
             >
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                <Image
-                  src="/images/buyback-work.jpeg"
-                  alt="Мастер забирает стиральную машину"
-                  width={200}
-                  height={150}
-                  className="w-full h-32 object-cover rounded-lg mb-4"
-                />
+                <div className="w-full h-32 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-lg mb-4 flex items-center justify-center">
+                  <div className="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center">
+                    <Truck className="w-8 h-8 text-white" />
+                  </div>
+                </div>
                 <p className="text-white/90 text-sm font-light">Профессиональный вывоз техники</p>
               </div>
 
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                <Image
-                  src="/images/buyback-master.jpeg"
-                  alt="Мастер перевозит стиральную машину"
-                  width={200}
-                  height={150}
-                  className="w-full h-32 object-cover rounded-lg mb-4"
-                />
+                <div className="w-full h-32 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-lg mb-4 flex items-center justify-center">
+                  <div className="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center">
+                    <Shield className="w-8 h-8 text-white" />
+                  </div>
+                </div>
                 <p className="text-white/90 text-sm font-light">Аккуратная транспортировка</p>
               </div>
             </motion.div>
